@@ -201,7 +201,7 @@ header p {
 .keypad button {
   height: 58px;
   border: none;
-  border-radius: 10px;
+  border-radius: 50%;
   background: var(--button-bg);
   color: var(--text-color);
   font-size: 19px;
