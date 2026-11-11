@@ -6,6 +6,35 @@ themeBtn.addEventListener("click", () => {
   document.body.classList.toggle("light", !isDark);
   themeBtn.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
 });
+// --- Calculation History ---
+
+const historyList = document.getElementById("history-list");
+const clearHistoryBtn = document.getElementById("clear-history");
+
+let history = [];
+
+function updateHistory() {
+    historyList.innerHTML = "";
+
+    history.forEach((item) => {
+        const li = document.createElement("li");
+
+        li.textContent = item;
+        historyList.appendChild(li);
+    });
+}
+
+function addToHistory(expression, result) {
+    history.unshift(`${expression} = ${result}`);
+
+    updateHistory();
+}
+
+// Clear History Button
+clearHistoryBtn.addEventListener("click", () => {
+    history = [];
+    updateHistory();
+});
 
 // --- Calculator Logic ---
 const previousOperandText = document.getElementById("previous-operand");
@@ -53,36 +82,55 @@ function chooseOperation(op) {
 }
 
 function compute() {
-  let computation;
-  const prev = parseFloat(previousOperand);
-  const current = parseFloat(currentOperand);
-  if (isNaN(prev) || isNaN(current)) return;
+    let computation;
 
-  switch (operation) {
-    case "+":
-      computation = prev + current;
-      break;
-    case "-":
-    case "−":
-      computation = prev - current;
-      break;
-    case "×":
-    case "*":
-      computation = prev * current;
-      break;
-    case "÷":
-    case "/":
-      if (current === 0) {
-        alert("Cannot divide by zero");
-        clearAll();
-        return;
-      }
-      computation = prev / current;
-      break;
-    default:
-      return;
-  }
+    const prev = parseFloat(previousOperand);
+    const current = parseFloat(currentOperand);
 
+    if (isNaN(prev) || isNaN(current)) return;
+
+    const expression = `${previousOperand} ${operation} ${currentOperand}`;
+
+    switch (operation) {
+        case "+":
+            computation = prev + current;
+            break;
+
+        case "-":
+        case "−":
+            computation = prev - current;
+            break;
+
+        case "×":
+        case "*":
+            computation = prev * current;
+            break;
+
+        case "÷":
+        case "/":
+            if (current === 0) {
+                alert("Cannot divide by zero");
+                clearAll();
+                return;
+            }
+
+            computation = prev / current;
+            break;
+
+        default:
+            return;
+    }
+
+    currentOperand =
+        Math.round(computation * 1e12) / 1e12 + "";
+
+    // Add calculation to history
+    addToHistory(expression, currentOperand);
+
+    operation = undefined;
+    previousOperand = "";
+    resetScreen = true;
+}
   currentOperand = Math.round(computation * 1e12) / 1e12 + "";
   operation = undefined;
   previousOperand = "";
