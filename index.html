@@ -1,26 +1,114 @@
-<div class="keypad">
-  <button class="action-btn">AC</button>
-  <button class="action-btn">&#9003;</button>
-  <button class="action-btn">%</button>
-  <button class="operator-btn">÷</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Standard Calculator</title>
 
-  <button class="number-btn">7</button>
-  <button class="number-btn">8</button>
-  <button class="number-btn">9</button>
-  <button class="operator-btn">×</button>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-  <button class="number-btn">4</button>
-  <button class="number-btn">5</button>
-  <button class="number-btn">6</button>
-  <button class="operator-btn">-</button>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-  <button class="number-btn">1</button>
-  <button class="number-btn">2</button>
-  <button class="number-btn">3</button>
-  <button class="operator-btn">+</button>
+<body class="light">
 
-  <button class="number-btn">0</button>
-  <button class="number-btn">00</button>
-  <button class="number-btn">.</button>
-  <button class="equals-btn">=</button>
-</div>
+  <!-- Header -->
+  <header>
+    <h1>Standard Calculator</h1>
+    <p>Supports (+, −, ×, ÷), keyboard inputs & history</p>
+  </header>
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="theme-btn" type="button">
+    🌙 Dark Mode
+  </button>
+
+  <!-- Calculator -->
+  <main class="calculator">
+
+    <!-- Display -->
+    <section class="display-container" aria-live="polite">
+
+      <div class="display-top">
+        <div class="previous-operand" id="previous-operand"></div>
+
+        <!-- History Icon -->
+        <button
+          id="history-btn"
+          class="history-btn"
+          type="button"
+          aria-label="Show calculation history"
+          title="Calculation History">
+          <i data-lucide="history"></i>
+        </button>
+      </div>
+
+      <div class="current-operand" id="current-operand">0</div>
+
+    </section>
+
+    <!-- History Container -->
+    <div class="history-container" id="history-container">
+
+      <div class="history-header">
+        <h3>Calculation History</h3>
+
+        <button id="clear-history" type="button">
+          Clear
+        </button>
+      </div>
+
+      <ul id="history-list">
+        <li class="empty-history">No calculations yet</li>
+      </ul>
+
+    </div>
+
+    <!-- Keypad -->
+    <section class="keypad">
+
+      <!-- Row 1 -->
+      <button class="action-btn" data-action="clear">AC</button>
+      <button class="action-btn" data-action="delete">⌫</button>
+      <button class="action-btn" data-action="percent">%</button>
+      <button class="operator-btn" data-operator="÷">÷</button>
+
+      <!-- Row 2 -->
+      <button data-number="7">7</button>
+      <button data-number="8">8</button>
+      <button data-number="9">9</button>
+      <button class="operator-btn" data-operator="×">×</button>
+
+      <!-- Row 3 -->
+      <button data-number="4">4</button>
+      <button data-number="5">5</button>
+      <button data-number="6">6</button>
+      <button class="operator-btn" data-operator="-">−</button>
+
+      <!-- Row 4 -->
+      <button data-number="1">1</button>
+      <button data-number="2">2</button>
+      <button data-number="3">3</button>
+      <button class="operator-btn" data-operator="+">+</button>
+
+      <!-- Row 5 -->
+      <button data-number="0">0</button>
+      <button data-number="00">00</button>
+      <button data-number=".">.</button>
+      <button class="equals-btn" data-action="equals">=</button>
+
+    </section>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+
+  <!-- Render Lucide Icons -->
+  <script>
+    lucide.createIcons();
+  </script>
+
+</body>
+</html>
