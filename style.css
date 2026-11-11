@@ -1,0 +1,223 @@
+/* ==========================================================================
+   Dual Theme Calculator Stylesheet
+   ========================================================================== */
+
+/* 1. Light Theme (Default) */
+:root,
+body.light {
+  --bg-app: #f1f5f9;
+  --bg-calculator: #ffffff;
+  --bg-display: #f8fafc;
+  --border-color: #cbd5e1;
+  
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+
+  --btn-num-bg: #e2e8f0;
+  --btn-num-hover: #cbd5e1;
+  --btn-num-text: #0f172a;
+
+  --btn-action-bg: #cbd5e1;
+  --btn-action-hover: #94a3b8;
+  --btn-action-text: #1e293b;
+
+  --btn-operator-bg: #f97316;
+  --btn-operator-hover: #ea580c;
+  --btn-operator-text: #ffffff;
+
+  --btn-equals-bg: #2563eb;
+  --btn-equals-hover: #1d4ed8;
+  --btn-equals-text: #ffffff;
+
+  --shadow-main: 0 20px 25px -5px rgba(15, 23, 42, 0.12),
+                 0 8px 10px -6px rgba(15, 23, 42, 0.08);
+  --shadow-btn: 0 2px 4px rgba(15, 23, 42, 0.08);
+}
+
+/* 2. Dark Theme */
+body.dark {
+  --bg-app: #0b0f19;
+  --bg-calculator: #151d2a;
+  --bg-display: #0d121c;
+  --border-color: rgba(255, 255, 255, 0.1);
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+
+  --btn-num-bg: #1e293b;
+  --btn-num-hover: #334155;
+  --btn-num-text: #f8fafc;
+
+  --btn-action-bg: #334155;
+  --btn-action-hover: #475569;
+  --btn-action-text: #e2e8f0;
+
+  --btn-operator-bg: #f97316;
+  --btn-operator-hover: #ea580c;
+  --btn-operator-text: #ffffff;
+
+  --btn-equals-bg: #3b82f6;
+  --btn-equals-hover: #2563eb;
+  --btn-equals-text: #ffffff;
+
+  --shadow-main: 0 25px 35px -5px rgba(0, 0, 0, 0.6),
+                 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+  --shadow-btn: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+/* Base resets */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--bg-app);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding: 1.25rem;
+  transition: background-color 0.25s ease;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background-color: var(--bg-calculator);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+  filter: brightness(0.9);
+}
+
+.theme-toggle:active {
+  transform: scale(0.96);
+}
+
+/* Calculator Shell */
+.calculator {
+  width: 100%;
+  max-width: 350px;
+  background-color: var(--bg-calculator);
+  border: 1px solid var(--border-color);
+  border-radius: 28px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-main);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+/* Screen */
+.display-container {
+  background-color: var(--bg-display);
+  border-radius: 18px;
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  min-height: 96px;
+  overflow: hidden;
+  word-break: break-all;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.previous-operand {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  min-height: 1.4rem;
+  letter-spacing: 0.5px;
+}
+
+.current-operand {
+  color: var(--text-main);
+  font-size: 2.4rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-top: 0.25rem;
+}
+
+/* Keypad Grid */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+button {
+  appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  height: 60px;
+  border-radius: 16px;
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--btn-num-text);
+  background-color: var(--btn-num-bg);
+  box-shadow: var(--shadow-btn);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.15s ease, transform 0.08s ease;
+}
+
+button:hover {
+  background-color: var(--btn-num-hover);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+/* Button Variants */
+button.action-btn {
+  background-color: var(--btn-action-bg);
+  color: var(--btn-action-text);
+}
+
+button.action-btn:hover {
+  background-color: var(--btn-action-hover);
+}
+
+button.operator-btn {
+  background-color: var(--btn-operator-bg);
+  color: var(--btn-operator-text);
+  font-size: 1.55rem;
+}
+
+button.operator-btn:hover {
+  background-color: var(--btn-operator-hover);
+}
+
+button.equals-btn {
+  background-color: var(--btn-equals-bg);
+  color: var(--btn-equals-text);
+  font-size: 1.6rem;
+}
+
+button.equals-btn:hover {
+  background-color: var(--btn-equals-hover);
+}
+
+.span-two {
+  grid-column: span 2;
+}
