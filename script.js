@@ -1,172 +1,159 @@
+// --- Theme Switcher ---
+const themeBtn = document.getElementById("theme-btn");
 
-const currentOperand = document.getElementById("current-operand");
-const previousOperand = document.getElementById("previous-operand");
+themeBtn.addEventListener("click", () => {
+  const isDark = document.body.classList.toggle("dark");
+  document.body.classList.toggle("light", !isDark);
+  themeBtn.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+});
 
-const numberButtons = document.querySelectorAll("[data-number]");
-const operatorButtons = document.querySelectorAll(".operator-btn");
-const actionButtons = document.querySelectorAll(".action-btn");
-const equalsButton = document.querySelector(".equals-btn");
+// --- Calculator Logic ---
+const previousOperandText = document.getElementById("previous-operand");
+const currentOperandText = document.getElementById("current-operand");
 
-const historyBtn = document.getElementById("history-btn");
-const historyContainer = document.getElementById("history-container");
-const historyList = document.getElementById("history-list");
-const clearHistory = document.getElementById("clear-history");
-
-let currentValue = "0";
-let previousValue = "";
-let operator = null;
-let shouldReset = false;
+let currentOperand = "0";
+let previousOperand = "";
+let operation = undefined;
+let resetScreen = false;
 
 function updateDisplay() {
-    currentOperand.textContent = currentValue;
-    previousOperand.textContent = previousValue;
+  currentOperandText.textContent = currentOperand;
+  if (operation != null) {
+    previousOperandText.textContent = `${previousOperand} ${operation}`;
+  } else {
+    previousOperandText.textContent = "";
+  }
 }
 
 function appendNumber(number) {
-    if (shouldReset) {
-        currentValue = "0";
-        shouldReset = false;
-    }
-
-    if (number === "." && currentValue.includes(".")) return;
-
-    if (currentValue === "0" && number !== ".") {
-        currentValue = number;
-    } else {
-        currentValue += number;
-    }
-
-    updateDisplay();
+  if (resetScreen) {
+    currentOperand = "";
+    resetScreen = false;
+  }
+  if (number === "." && currentOperand.includes(".")) return;
+  if (currentOperand === "0" && number !== ".") {
+    currentOperand = number.toString();
+  } else {
+    currentOperand += number.toString();
+  }
 }
 
-function chooseOperator(selectedOperator) {
-    if (operator !== null) calculate();
-
-    previousValue = currentValue;
-    operator = selectedOperator;
-    shouldReset = true;
-
-    updateDisplay();
+function chooseOperation(op) {
+  if (currentOperand === "" && previousOperand === "") return;
+  if (currentOperand === "" && previousOperand !== "") {
+    operation = op;
+    return;
+  }
+  if (previousOperand !== "") {
+    compute();
+  }
+  operation = op;
+  previousOperand = currentOperand;
+  currentOperand = "";
 }
 
-function calculate() {
-    if (operator === null || previousValue === "") return;
+function compute() {
+  let computation;
+  const prev = parseFloat(previousOperand);
+  const current = parseFloat(currentOperand);
+  if (isNaN(prev) || isNaN(current)) return;
 
-    const first = parseFloat(previousValue);
-    const second = parseFloat(currentValue);
+  switch (operation) {
+    case "+":
+      computation = prev + current;
+      break;
+    case "-":
+    case "−":
+      computation = prev - current;
+      break;
+    case "×":
+    case "*":
+      computation = prev * current;
+      break;
+    case "÷":
+    case "/":
+      if (current === 0) {
+        alert("Cannot divide by zero");
+        clearAll();
+        return;
+      }
+      computation = prev / current;
+      break;
+    default:
+      return;
+  }
 
-    let result;
-
-    switch (operator) {
-        case "+":
-            result = first + second;
-            break;
-
-        case "−":
-            result = first - second;
-            break;
-
-        case "×":
-            result = first * second;
-            break;
-
-        case "÷":
-            if (second === 0) {
-                currentValue = "Cannot divide by zero";
-                previousValue = "";
-                operator = null;
-                updateDisplay();
-                shouldReset = true;
-                return;
-            }
-            result = first / second;
-            break;
-    }
-
-    const calculation = `${first} ${operator} ${second} = ${result}`;
-
-    currentValue = String(Number(result.toFixed(10)));
-
-    addHistory(calculation);
-
-    previousValue = "";
-    operator = null;
-    shouldReset = true;
-
-    updateDisplay();
-}
-
-function addHistory(calculation) {
-    const emptyMessage = historyList.querySelector(".empty-history");
-
-    if (emptyMessage) {
-        emptyMessage.remove();
-    }
-
-    const li = document.createElement("li");
-    li.textContent = calculation;
-
-    historyList.prepend(li);
+  currentOperand = Math.round(computation * 1e12) / 1e12 + "";
+  operation = undefined;
+  previousOperand = "";
+  resetScreen = true;
 }
 
 function clearAll() {
-    currentValue = "0";
-    previousValue = "";
-    operator = null;
-    shouldReset = false;
-
-    updateDisplay();
+  currentOperand = "0";
+  previousOperand = "";
+  operation = undefined;
 }
 
 function deleteNumber() {
-    if (shouldReset) return;
-
-    currentValue = currentValue.length > 1
-        ? currentValue.slice(0, -1)
-        : "0";
-
-    updateDisplay();
+  if (resetScreen) return;
+  if (currentOperand.length === 1 || currentOperand === "0") {
+    currentOperand = "0";
+  } else {
+    currentOperand = currentOperand.slice(0, -1);
+  }
 }
 
-function percentage() {
-    currentValue = String(parseFloat(currentValue) / 100);
-    updateDisplay();
+function applyPercentage() {
+  const current = parseFloat(currentOperand);
+  if (isNaN(current)) return;
+  currentOperand = (current / 100).toString();
 }
 
-numberButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        appendNumber(button.dataset.number);
-    });
+// Event Listeners for keypad buttons
+document.querySelectorAll("[data-number]").forEach((button) => {
+  button.addEventListener("click", () => {
+    appendNumber(button.dataset.number);
+    updateDisplay();
+  });
 });
 
-operatorButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        chooseOperator(button.textContent.trim());
-    });
+document.querySelectorAll("[data-operator]").forEach((button) => {
+  button.addEventListener("click", () => {
+    chooseOperation(button.dataset.operator);
+    updateDisplay();
+  });
 });
 
-actionButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        const action = button.textContent.trim();
-
-        if (action === "AC") {
-            clearAll();
-        } else if (action === "⌫") {
-            deleteNumber();
-        } else if (action === "%") {
-            percentage();
-        }
-    });
+document.querySelectorAll("[data-action]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const action = button.dataset.action;
+    if (action === "clear") clearAll();
+    if (action === "delete") deleteNumber();
+    if (action === "equals") compute();
+    if (action === "percent") applyPercentage();
+    updateDisplay();
+  });
 });
 
-equalsButton.addEventListener("click", calculate);
-
-historyBtn.addEventListener("click", () => {
-    historyContainer.classList.toggle("show");
+// Keyboard support
+window.addEventListener("keydown", (e) => {
+  if ((e.key >= "0" && e.key <= "9") || e.key === ".") {
+    appendNumber(e.key);
+  } else if (e.key === "+" || e.key === "-") {
+    chooseOperation(e.key);
+  } else if (e.key === "*") {
+    chooseOperation("×");
+  } else if (e.key === "/") {
+    e.preventDefault();
+    chooseOperation("÷");
+  } else if (e.key === "Enter" || e.key === "=") {
+    e.preventDefault();
+    compute();
+  } else if (e.key === "Backspace") {
+    deleteNumber();
+  } else if (e.key === "Escape") {
+    clearAll();
+  }
+  updateDisplay();
 });
-
-clearHistory.addEventListener("click", () => {
-    historyList.innerHTML = '<li class="empty-history">No calculations yet</li>';
-});
-
-updateDisplay();
