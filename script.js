@@ -5,10 +5,6 @@ themeBtn.addEventListener("click", () => {
   const isDark = document.body.classList.toggle("dark");
   document.body.classList.toggle("light", !isDark);
 
-  themeBtn.textContent = isDark
-    ? "☀️ Light Mode"
-    : "🌙 Dark Mode";
-});
 const previousOperandText =
   document.getElementById("previous-operand");
 
