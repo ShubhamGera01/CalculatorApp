@@ -5,30 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Standard Calculator</title>
 
-  <!-- Lucide Icons -->
+  
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="light">
-
-
-  <!-- Theme Toggle -->
-  <button class="theme-toggle" id="theme-btn" type="button">
-    🌙 Dark Mode
-  </button>
-
-  <!-- Calculator -->
   <main class="calculator">
-
-    <!-- Display -->
     <section class="display-container" aria-live="polite">
 
       <div class="display-top">
         <div class="previous-operand" id="previous-operand"></div>
 
-        <!-- History Icon -->
+        
         <button
           id="history-btn"
           class="history-btn"
@@ -43,7 +33,6 @@
 
     </section>
 
-    <!-- History Container -->
     <div class="history-container" id="history-container">
 
       <div class="history-header">
@@ -60,34 +49,33 @@
 
     </div>
 
-    <!-- Keypad -->
-    <section class="keypad">
+      <section class="keypad">
 
-      <!-- Row 1 -->
+      
       <button class="action-btn" >AC</button>
       <button class="action-btn" >⌫</button>
       <button class="action-btn" >%</button>
       <button class="operator-btn" >÷</button>
 
-      <!-- Row 2 -->
+      
       <button data-number="7">7</button>
       <button data-number="8">8</button>
       <button data-number="9">9</button>
       <button class="operator-btn" >×</button>
 
-      <!-- Row 3 -->
+    
       <button data-number="4">4</button>
       <button data-number="5">5</button>
       <button data-number="6">6</button>
       <button class="operator-btn" >−</button>
 
-      <!-- Row 4 -->
+      
       <button data-number="1">1</button>
       <button data-number="2">2</button>
       <button data-number="3">3</button>
       <button class="operator-btn" >+</button>
 
-      <!-- Row 5 -->
+      
       <button data-number="0">0</button>
       <button data-number="00">00</button>
       <button data-number=".">.</button>
@@ -97,10 +85,10 @@
 
   </main>
 
-  <!-- JavaScript -->
+
   <script src="script.js"></script>
 
-  <!-- Render Lucide Icons -->
+
   <script>
     lucide.createIcons();
   </script>
