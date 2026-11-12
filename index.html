@@ -1,97 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Standard Calculator</title>
-
-  
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Calculator</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body class="light">
+
+  <!-- Theme Toggle Button -->
+  <button class="theme-toggle" id="theme-btn" type="button" aria-label="Toggle theme">
+    🌙 Dark Mode
+  </button>
+
+  <!-- Calculator Container -->
   <main class="calculator">
+    <!-- Output / Display Screen -->
     <section class="display-container" aria-live="polite">
-
-      <div class="display-top">
-        <div class="previous-operand" id="previous-operand"></div>
-
-        
-        <button
-          id="history-btn"
-          class="history-btn"
-          type="button"
-          aria-label="Show calculation history"
-          title="Calculation History">
-          <i data-lucide="history"></i>
-        </button>
-      </div>
-
+      <div class="previous-operand" id="previous-operand"></div>
       <div class="current-operand" id="current-operand">0</div>
-
     </section>
 
-    <div class="history-container" id="history-container">
+    <!-- Keypad Grid -->
+    <section class="keypad">
+      <!-- Row 1: Actions -->
+      <button type="button" class="action-btn" data-action="clear">AC</button>
+      <button type="button" class="action-btn" data-action="delete">⌫</button>
+      <button type="button" class="action-btn" data-action="percent">%</button>
+      <button type="button" class="operator-btn" data-operator="÷">÷</button>
 
-      <div class="history-header">
-        <h3>Calculation History</h3>
+      <!-- Row 2 -->
+      <button type="button" data-number="7">7</button>
+      <button type="button" data-number="8">8</button>
+      <button type="button" data-number="9">9</button>
+      <button type="button" class="operator-btn" data-operator="×">×</button>
 
-        <button id="clear-history" type="button">
-          Clear
-        </button>
-      </div>
+      <!-- Row 3 -->
+      <button type="button" data-number="4">4</button>
+      <button type="button" data-number="5">5</button>
+      <button type="button" data-number="6">6</button>
+      <button type="button" class="operator-btn" data-operator="-">−</button>
 
-      <ul id="history-list">
-        <li class="empty-history">No calculations yet</li>
-      </ul>
+      <!-- Row 4 -->
+      <button type="button" data-number="1">1</button>
+      <button type="button" data-number="2">2</button>
+      <button type="button" data-number="3">3</button>
+      <button type="button" class="operator-btn" data-operator="+">+</button>
 
-    </div>
-
-      <section class="keypad">
-
-      
-      <button class="action-btn" >AC</button>
-      <button class="action-btn" >⌫</button>
-      <button class="action-btn" >%</button>
-      <button class="operator-btn" >÷</button>
-
-      
-      <button data-number="7">7</button>
-      <button data-number="8">8</button>
-      <button data-number="9">9</button>
-      <button class="operator-btn" >×</button>
-
-    
-      <button data-number="4">4</button>
-      <button data-number="5">5</button>
-      <button data-number="6">6</button>
-      <button class="operator-btn" >−</button>
-
-      
-      <button data-number="1">1</button>
-      <button data-number="2">2</button>
-      <button data-number="3">3</button>
-      <button class="operator-btn" >+</button>
-
-      
-      <button data-number="0">0</button>
-      <button data-number="00">00</button>
-      <button data-number=".">.</button>
-      <button class="equals-btn">=</button>
-
+      <!-- Row 5 -->
+      <button type="button" data-number="0" class="span-two">0</button>
+      <button type="button" data-number=".">.</button>
+      <button type="button" class="equals-btn" data-action="equals">=</button>
     </section>
-
   </main>
 
-
   <script src="script.js"></script>
-
-
-  <script>
-    lucide.createIcons();
-  </script>
-
 </body>
 </html>
