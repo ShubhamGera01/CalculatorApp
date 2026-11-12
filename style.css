@@ -1,10 +1,9 @@
-/* --- Global Styles --- */
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif
+  font-family: Arial, sans-serif;
 }
 
 body {
@@ -14,10 +13,10 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  transition: 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* --- Light Theme --- */
+/* Light Theme */
 
 body.light {
   background: #f1f5f9;
@@ -30,7 +29,7 @@ body.light {
   --border-color: #cbd5e1;
 }
 
-/* --- Dark Theme --- */
+/* Dark Theme */
 
 body.dark {
   background: #0f172a;
@@ -43,7 +42,7 @@ body.dark {
   --border-color: #475569;
 }
 
-/* --- Header --- */
+/* Header */
 
 header {
   text-align: center;
@@ -60,7 +59,7 @@ header p {
   color: #64748b;
 }
 
-/* --- Theme Button --- */
+/* Theme Button */
 
 .theme-toggle {
   padding: 9px 16px;
@@ -72,7 +71,7 @@ header p {
   cursor: pointer;
 }
 
-/* --- Calculator --- */
+/* Calculator */
 
 .calculator {
   width: 100%;
@@ -80,10 +79,11 @@ header p {
   padding: 18px;
   border-radius: 18px;
   background: var(--calculator-bg);
+  color: var(--text-color);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
-/* --- Display --- */
+/* Display */
 
 .display-container {
   padding: 15px;
@@ -114,7 +114,7 @@ header p {
   margin-top: 8px;
 }
 
-/* --- History Icon --- */
+/* History Icon */
 
 .history-btn {
   background: transparent;
@@ -134,7 +134,7 @@ header p {
   height: 21px;
 }
 
-/* --- History Container --- */
+/* History Container */
 
 .history-container {
   display: none;
@@ -189,7 +189,7 @@ header p {
   text-align: center;
 }
 
-/* --- Keypad --- */
+/* Keypad */
 
 .keypad {
   display: grid;
@@ -206,7 +206,7 @@ header p {
   font-size: 19px;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.2s;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
 .keypad button:hover {
@@ -218,35 +218,44 @@ header p {
   transform: scale(0.95);
 }
 
-/* --- Action Buttons --- */
+/* Action Buttons */
 
 .keypad .action-btn {
   background: #cbd5e1;
   color: #1e293b;
 }
 
-/* --- Operator Buttons --- */
+/* Operator Buttons */
 
 .keypad .operator-btn {
   background: #6366f1;
   color: white;
 }
 
-/* --- Equals Button --- */
+/* Equals Button */
 
 .keypad .equals-btn {
   background: #16a34a;
   color: white;
 }
 
-/* --- Mobile Responsive --- */
+/* Mobile Responsive */
 
 @media (max-width: 400px) {
   .calculator {
     max-width: 100%;
   }
 
+  .keypad {
+    gap: 8px;
+  }
+
   .keypad button {
     height: 52px;
+    font-size: 17px;
+  }
+
+  .current-operand {
+    font-size: 28px;
   }
 }
