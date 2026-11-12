@@ -1,6 +1,11 @@
 
+
 const themeBtn = document.getElementById("theme-btn");
 
+themeBtn.addEventListener("click", () => {
+  const isDark = document.body.classList.toggle("dark");
+  document.body.classList.toggle("light", !isDark);
+});
 themeBtn.addEventListener("click", () => {
   const isDark = document.body.classList.toggle("dark");
   document.body.classList.toggle("light", !isDark);
