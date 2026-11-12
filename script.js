@@ -1,6 +1,3 @@
-// =====================================
-// THEME SWITCHER
-// =====================================
 
 const themeBtn = document.getElementById("theme-btn");
 
@@ -12,12 +9,6 @@ themeBtn.addEventListener("click", () => {
     ? "☀️ Light Mode"
     : "🌙 Dark Mode";
 });
-
-
-// =====================================
-// CALCULATOR VARIABLES
-// =====================================
-
 const previousOperandText =
   document.getElementById("previous-operand");
 
@@ -28,12 +19,6 @@ let currentOperand = "0";
 let previousOperand = "";
 let operation = undefined;
 let resetScreen = false;
-
-
-// =====================================
-// HISTORY VARIABLES
-// =====================================
-
 const historyBtn = document.getElementById("history-btn");
 
 const historyContainer =
@@ -47,11 +32,6 @@ const clearHistoryBtn =
 
 let history = [];
 
-
-// =====================================
-// UPDATE DISPLAY
-// =====================================
-
 function updateDisplay() {
   currentOperandText.textContent = currentOperand;
 
@@ -63,35 +43,28 @@ function updateDisplay() {
   }
 }
 
-
-// =====================================
-// APPEND NUMBER
-// =====================================
-
 function appendNumber(number) {
   if (resetScreen) {
     currentOperand = "";
     resetScreen = false;
   }
 
-  // Prevent multiple decimal points
+ 
   if (number === "." && currentOperand.includes(".")) {
     return;
   }
 
-  // Handle leading zero / double zeros
+ 
   if (currentOperand === "0") {
-    // If input is "0" or "00", keep it as a single "0"
+  
     if (number === "0" || number === "00") return;
 
-    // If starting with any other number, replace the single "0"
+   
     if (number !== ".") {
       currentOperand = number.toString();
       return;
     }
   }
-
-  // If empty and "00" is clicked, just make it "0"
   if (currentOperand === "" && number === "00") {
     currentOperand = "0";
     return;
@@ -99,12 +72,6 @@ function appendNumber(number) {
 
   currentOperand += number.toString();
 }
-
-
-// =====================================
-// CHOOSE OPERATION
-// =====================================
-
 function chooseOperation(op) {
   if (currentOperand === "" && previousOperand === "") {
     return;
@@ -123,12 +90,6 @@ function chooseOperation(op) {
   previousOperand = currentOperand;
   currentOperand = "";
 }
-
-
-// =====================================
-// COMPUTE RESULT
-// =====================================
-
 function compute() {
   let computation;
 
@@ -181,24 +142,12 @@ function compute() {
   previousOperand = "";
   resetScreen = true;
 }
-
-
-// =====================================
-// CLEAR ALL
-// =====================================
-
 function clearAll() {
   currentOperand = "0";
   previousOperand = "";
   operation = undefined;
   resetScreen = false;
 }
-
-
-// =====================================
-// DELETE NUMBER
-// =====================================
-
 function deleteNumber() {
   if (resetScreen) return;
 
@@ -211,12 +160,6 @@ function deleteNumber() {
     currentOperand = currentOperand.slice(0, -1);
   }
 }
-
-
-// =====================================
-// PERCENTAGE
-// =====================================
-
 function applyPercentage() {
   const current = parseFloat(currentOperand);
 
@@ -224,22 +167,10 @@ function applyPercentage() {
 
   currentOperand = (current / 100).toString();
 }
-
-
-// =====================================
-// ADD TO HISTORY
-// =====================================
-
 function addToHistory(expression, result) {
   history.unshift(`${expression} = ${result}`);
   updateHistory();
 }
-
-
-// =====================================
-// UPDATE HISTORY DISPLAY
-// =====================================
-
 function updateHistory() {
   historyList.innerHTML = "";
 
@@ -257,54 +188,25 @@ function updateHistory() {
     historyList.appendChild(li);
   });
 }
-
-
-// =====================================
-// SHOW / HIDE HISTORY
-// =====================================
-
 historyBtn.addEventListener("click", () => {
   historyContainer.classList.toggle("show");
 });
-
-
-// =====================================
-// CLEAR HISTORY
-// =====================================
-
 clearHistoryBtn.addEventListener("click", () => {
   history = [];
   updateHistory();
 });
-
-
-// =====================================
-// NUMBER BUTTON EVENTS
-// =====================================
-
 document.querySelectorAll("[data-number]").forEach((button) => {
   button.addEventListener("click", () => {
     appendNumber(button.dataset.number);
     updateDisplay();
   });
 });
-
-
-// =====================================
-// OPERATOR BUTTON EVENTS
-// =====================================
-
 document.querySelectorAll("[data-operator]").forEach((button) => {
   button.addEventListener("click", () => {
     chooseOperation(button.dataset.operator);
     updateDisplay();
   });
 });
-
-
-// =====================================
-// ACTION BUTTON EVENTS
-// =====================================
 
 document.querySelectorAll("[data-action]").forEach((button) => {
   button.addEventListener("click", () => {
@@ -318,11 +220,6 @@ document.querySelectorAll("[data-action]").forEach((button) => {
     updateDisplay();
   });
 });
-
-
-// =====================================
-// KEYBOARD SUPPORT
-// =====================================
 
 window.addEventListener("keydown", (e) => {
   if (
